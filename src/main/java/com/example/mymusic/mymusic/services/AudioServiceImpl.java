@@ -5,7 +5,7 @@ import com.example.mymusic.mymusic.repositories.AudioRepository;
 
 import java.util.NoSuchElementException;
 
-public class AudioServiceImpl implements AudioService{
+public class AudioServiceImpl implements AudioService {
 
     private final AudioRepository audioRepository;
 
@@ -13,15 +13,13 @@ public class AudioServiceImpl implements AudioService{
         this.audioRepository = audioRepository;
     }
 
-    public Audio getAudiobyId(Long id){
-
-    };
-    public Audio getAudiobyName(Long id){};
-    public Audio saveAudio(Long id){};
-    public void deleteAudio(Long id){};
+    @Override
+    public Audio saveAudio(Audio audio) {
+        return audioRepository.save(audio);
+    }
 
     @Override
-    public Audio updateAudio(Long id, Audio updatedAudio){
+    public Audio updateAudio(Long id, Audio updatedAudio) {
         Audio existingAudio = audioRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Audio not found"));
 
@@ -29,5 +27,26 @@ public class AudioServiceImpl implements AudioService{
         existingAudio.setSize(updatedAudio.getSize());
 
         return audioRepository.save(existingAudio);
-    };
+    }
+
+    @Override
+    public Audio getAudiobyId(Long id) {
+        return audioRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Audio not found"));
+    }
+
+    @Override
+    public Audio getAudiobyName(String name) {
+        return audioRepository.findByName(name)
+                .orElseThrow(() -> new NoSuchElementException("Audio not found"));
+    }
+
+    @Override
+    public void deleteAudio(Long id) {
+        Audio existingAudio = audioRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Audio not found"));
+        audioRepository.delete(existingAudio);
+    }
+
+
 }
