@@ -2,9 +2,11 @@ package com.example.mymusic.mymusic.services;
 
 import com.example.mymusic.mymusic.models.Audio;
 import com.example.mymusic.mymusic.repositories.AudioRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
 
+@Service
 public class AudioServiceImpl implements AudioService {
 
     private final AudioRepository audioRepository;

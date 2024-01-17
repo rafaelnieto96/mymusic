@@ -1,0 +1,8 @@
+.container-audio {
+    width: 66%;
+    margin: 20px auto;
+}
+
+audio {
+    width: 100%;
+}

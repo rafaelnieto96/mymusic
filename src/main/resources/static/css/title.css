@@ -1,0 +1,19 @@
+article {
+    background: linear-gradient(to right,
+            hsl(177, 100%, 50%),
+            hsl(0, 0%, 100%));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    width: 100%;
+}
+
+h1,
+p,
+body {
+    margin: 0;
+}
+
+p {
+    font-family: "Dank Mono", ui-monospace, monospace;
+}
