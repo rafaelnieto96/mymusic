@@ -26,7 +26,7 @@ public class AudioServiceImpl implements AudioService {
                 .orElseThrow(() -> new NoSuchElementException("Audio not found"));
 
         existingAudio.setName(updatedAudio.getName());
-        existingAudio.setSize(updatedAudio.getSize());
+        existingAudio.setDuration(updatedAudio.getDuration());
 
         return audioRepository.save(existingAudio);
     }
