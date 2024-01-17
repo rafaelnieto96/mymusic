@@ -4,6 +4,7 @@ import com.example.mymusic.mymusic.models.Audio;
 import com.example.mymusic.mymusic.repositories.AudioRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -41,6 +42,11 @@ public class AudioServiceImpl implements AudioService {
     public Audio getAudiobyName(String name) {
         return audioRepository.findByName(name)
                 .orElseThrow(() -> new NoSuchElementException("Audio not found"));
+    }
+
+    @Override
+    public List<Audio> getAllAudios() {
+        return audioRepository.findAll();
     }
 
     @Override
