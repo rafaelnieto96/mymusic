@@ -17,4 +17,6 @@ public class Audio {
     private Long id;
     private String name;
     private double duration;
+    @Column(name = "file_url")
+    private String fileUrl;
 }
