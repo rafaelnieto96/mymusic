@@ -74,7 +74,8 @@
         </article>
         <button class="new-btn" style="--clr:#39FF14" onclick="openFileInput()">
             <span>New</span><i></i>
-        </button>    </div>
+        </button>
+    </div>
 
     <div class="tbl-header">
         <table cellpadding="0" cellspacing="0" border="0">
@@ -102,23 +103,27 @@
             </tbody>
         </table>
     </div>
-    <div class="container-audio">
-        <audio controls loop autoplay>
-            <source src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9473/new_year_dubstep_minimix.ogg"
-                    type="audio/ogg">
-            Your browser does not Support the audio Tag
-        </audio>
-    </div>
+
+
 </div>
 
-<input type="file" id="fileInput" name="file" accept=".mp3" style="display: none">
-
+<form id="uploadForm" method="POST" action="/audio/upload" enctype="multipart/form-data">
+    <input type="file" id="fileInput" name="file" accept="audio/mp3" style="display: none" onchange="submitForm()">
+</form>
 
 <script>
     function openFileInput() {
+        console.log("File input clicked");
         document.getElementById('fileInput').click();
     }
+
+    function submitForm() {
+        console.log("Form submitted");
+        document.getElementById('uploadForm').submit();
+    }
 </script>
+
+
 </body>
 
 </html>

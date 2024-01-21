@@ -18,21 +18,6 @@ public class AudioController {
         this.audioService = audioService;
     }
 
-    @PostMapping("/upload")
-    public ResponseEntity<?> uploadAudio(@RequestParam("file") MultipartFile file, @RequestParam("name") String name, @RequestParam("duration") double duration) {
-        // Save the audio file
-        String fileUrl = audioService.saveFile(file);
-
-        // Create an Audio object and save it to the database
-        Audio audio = new Audio();
-        audio.setName(name);
-        audio.setDuration(duration);
-        audio.setFileUrl(fileUrl);
-
-        Audio savedAudio = audioService.saveAudio(audio);
-
-        return new ResponseEntity<>(savedAudio, HttpStatus.CREATED);
-    }
 
 //    @PostMapping("/create")
 //    public ResponseEntity<?> saveAudio(
@@ -81,6 +66,17 @@ public class AudioController {
     public ResponseEntity<?> deleteAudio(@PathVariable Long id) {
         audioService.deleteAudio(id);
         return new ResponseEntity<>("Audio deleted succesfully", HttpStatus.OK);
+    }
+
+    @PostMapping("/upload")
+    public String handleFileUpload(@RequestParam("file") MultipartFile file) {
+        if (!file.isEmpty()) {
+            System.out.println("File uploaded: " + file.getOriginalFilename());
+        } else {
+            System.out.println("No file uploaded");
+        }
+
+        return "redirect:/";
     }
 
 }
