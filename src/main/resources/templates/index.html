@@ -117,32 +117,35 @@
 </form>
 
 <script>
-    function openFileInput() {
-        console.log("File input clicked");
-        document.getElementById('fileInput').click();
-    }
+// Upload
+function openFileInput() {
+    console.log("File input clicked");
+    document.getElementById('fileInput').click();
+}
 
-    async function submitForm() {
-        console.log("Form submitted");
+async function submitForm() {
+    console.log("Form submitted");
 
-        var formData = new FormData(document.getElementById('uploadForm'));
+    var formData = new FormData(document.getElementById('uploadForm'));
 
-        try {
-            const response = await fetch('/audio/upload', {
-                method: 'POST',
-                body: formData
-            });
+    try {
+        const response = await fetch('/audio/upload', {
+            method: 'POST',
+            body: formData
+        });
 
-            if (response.ok) {
-                console.log('File uploaded successfully');
-                location.reload();
-            } else {
-                console.error('Error uploading file');
-            }
-        } catch (error) {
-            console.error('Error during form submission:', error);
+        if (response.ok) {
+            console.log('File uploaded successfully');
+            location.reload();
+        } else {
+            console.error('Error uploading file');
         }
+    } catch (error) {
+        console.error('Error during form submission:', error);
     }
+}
+
+// Delete
 </script>
 </body>
 

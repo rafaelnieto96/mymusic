@@ -20,9 +20,9 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     private void initializeData() {
-        Audio audio1 = new Audio(null, "Breaking benjamin - Breath", 3.45, "https://example.com/audio1");
-        Audio audio2 = new Audio(null, "Linkin Park - In the End", 4.45, "https://example.com/audio2");
-        Audio audio3 = new Audio(null, "Linkin Park - Numb", 5.45, "https://example.com/audio3");
+        Audio audio1 = new Audio(1L, "Breaking benjamin - Breath", 3.45, "https://example.com/audio1");
+        Audio audio2 = new Audio(2L, "Linkin Park - In the End", 4.45, "https://example.com/audio2");
+        Audio audio3 = new Audio(3L, "Linkin Park - Numb", 5.45, "https://example.com/audio3");
 
         audioRepository.save(audio1);
         audioRepository.save(audio2);
