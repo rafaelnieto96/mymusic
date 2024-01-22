@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/music.ico" />
     <link rel="stylesheet" type="text/css" th:href="@{/css/buttons.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/music.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/stars.css}"/>
@@ -97,7 +98,9 @@
                 <td th:text="${audio.duration}">Default Duration</td>
                 <td>
                     <button style="--clr:#0FF0FC"><span>Play</span><i></i></button>
-                    <button class="delete-btn" style="--clr:#FF3131"><span>Delete</span><i></i></button>
+                    <button class="delete-btn" style="--clr:#FF3131" th:attr="onclick=|deleteAudio('${audio.id}')|">
+                        <span>Delete</span><i></i>
+                    </button>
                 </td>
             </tr>
             </tbody>
@@ -117,35 +120,51 @@
 </form>
 
 <script>
-// Upload
-function openFileInput() {
-    console.log("File input clicked");
-    document.getElementById('fileInput').click();
-}
-
-async function submitForm() {
-    console.log("Form submitted");
-
-    var formData = new FormData(document.getElementById('uploadForm'));
-
-    try {
-        const response = await fetch('/audio/upload', {
-            method: 'POST',
-            body: formData
-        });
-
-        if (response.ok) {
-            console.log('File uploaded successfully');
-            location.reload();
-        } else {
-            console.error('Error uploading file');
-        }
-    } catch (error) {
-        console.error('Error during form submission:', error);
+    // Upload
+    function openFileInput() {
+        console.log("File input clicked");
+        document.getElementById('fileInput').click();
     }
-}
 
-// Delete
+    async function submitForm() {
+        console.log("Form submitted");
+
+        var formData = new FormData(document.getElementById('uploadForm'));
+
+        try {
+            const response = await fetch('/audio/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                console.log('File uploaded successfully');
+                location.reload();
+            } else {
+                console.error('Error uploading file');
+            }
+        } catch (error) {
+            console.error('Error during form submission:', error);
+        }
+    }
+
+    // Delete
+      async function deleteAudio(audioId) {
+        try {
+            const response = await fetch(`/audio/delete/${audioId}`, {
+                method: 'DELETE'
+            });
+
+            if (response.ok) {
+                console.log('Audio deleted successfully');
+                location.reload();
+            } else {
+                console.error('Error deleting audio');
+            }
+        } catch (error) {
+            console.error('Error during delete:', error);
+        }
+    }
 </script>
 </body>
 

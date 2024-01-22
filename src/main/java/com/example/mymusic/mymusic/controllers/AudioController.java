@@ -41,6 +41,7 @@ public class AudioController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteAudio(@PathVariable Long id) {
+        System.out.println("File deleted: " + id);
         audioService.deleteAudio(id);
         return new ResponseEntity<>("Audio deleted succesfully", HttpStatus.OK);
     }
