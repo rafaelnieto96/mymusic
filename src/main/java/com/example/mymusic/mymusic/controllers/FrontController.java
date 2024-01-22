@@ -11,7 +11,7 @@ import java.util.List;
 @Controller
 public class FrontController {
 
-    private AudioServiceImpl audioService;
+    private final AudioServiceImpl audioService;
 
     public FrontController(AudioServiceImpl audioService) {
         this.audioService = audioService;
