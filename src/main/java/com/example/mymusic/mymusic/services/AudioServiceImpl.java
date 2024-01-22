@@ -11,6 +11,8 @@ import java.util.NoSuchElementException;
 @Service
 public class AudioServiceImpl implements AudioService {
 
+    private static final String UPLOAD_FOLDER = "Uploads/";
+
     private final AudioRepository audioRepository;
 
     public AudioServiceImpl(AudioRepository audioRepository) {
@@ -55,12 +57,20 @@ public class AudioServiceImpl implements AudioService {
     @Override
     public void saveFile(MultipartFile file) {
         Audio audio = new Audio();
-        audio.setName(file.getOriginalFilename());
+        audio.setName("");
         audio.setDuration(0.0);
-        audio.setFileUrl("test");
+        audioRepository.save(audio);
+
+        String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+        Long id = audio.getId();
+
+        String path = UPLOAD_FOLDER + id + "." + extension;
+        audio.setName(file.getOriginalFilename());
+        audio.setFileUrl(path);
 
         audioRepository.save(audio);
 
+        //ToDo: Delete prints in the entire project
         System.out.println("File and audio information saved successfully");
     }
 
