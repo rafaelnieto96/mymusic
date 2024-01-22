@@ -18,29 +18,6 @@ public class AudioController {
         this.audioService = audioService;
     }
 
-
-//    @PostMapping("/create")
-//    public ResponseEntity<?> saveAudio(
-//            @RequestPart("file") MultipartFile file,
-//            @RequestPart("audio") Audio audio
-//    ) {
-//        // Save the file and get the file URL
-//        String fileUrl = audioService.saveFile(file);
-//
-//        // Set the file URL in the audio object
-//        audio.setFileUrl(fileUrl);
-//
-//        // Save the audio details
-//        Audio savedAudio = audioService.saveAudio(audio);
-//
-//        return new ResponseEntity<>(savedAudio, HttpStatus.CREATED);
-//    }
-
-    @PostMapping("/create")
-    public ResponseEntity<?> saveAudio(@RequestBody Audio audio) {
-        return new ResponseEntity<>(audioService.saveAudio(audio), HttpStatus.CREATED);
-    }
-
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateAudio(@PathVariable long id, @RequestBody Audio updatedAudio) {
         Audio updated = audioService.updateAudio(id, updatedAudio);
@@ -69,8 +46,9 @@ public class AudioController {
     }
 
     @PostMapping("/upload")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file) {
+    public String saveFile(@RequestParam("file") MultipartFile file) {
         if (!file.isEmpty()) {
+            audioService.saveFile(file);
             System.out.println("File uploaded: " + file.getOriginalFilename());
         } else {
             System.out.println("No file uploaded");

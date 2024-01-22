@@ -5,10 +5,8 @@ import com.example.mymusic.mymusic.repositories.AudioRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.UUID;
 
 @Service
 public class AudioServiceImpl implements AudioService {
@@ -17,11 +15,6 @@ public class AudioServiceImpl implements AudioService {
 
     public AudioServiceImpl(AudioRepository audioRepository) {
         this.audioRepository = audioRepository;
-    }
-
-    @Override
-    public Audio saveAudio(Audio audio) {
-        return audioRepository.save(audio);
     }
 
     @Override
@@ -60,23 +53,15 @@ public class AudioServiceImpl implements AudioService {
     }
 
     @Override
-    public String saveFile(MultipartFile file) {
-        String originalFilename = file.getOriginalFilename();
-        String uniqueFilename = generateUniqueFilename(originalFilename);
-        String fileUrl = "/path/to/your/audio/files/" + uniqueFilename;
+    public void saveFile(MultipartFile file) {
+        Audio audio = new Audio();
+        audio.setName(file.getOriginalFilename());
+        audio.setDuration(0.0);
+        audio.setFileUrl("test");
 
-        try {
-            file.transferTo(new java.io.File(fileUrl));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        audioRepository.save(audio);
 
-        return fileUrl;
+        System.out.println("File and audio information saved successfully");
     }
-
-    private String generateUniqueFilename(String originalFilename) {
-        return UUID.randomUUID().toString() + "_" + originalFilename;
-    }
-
 
 }

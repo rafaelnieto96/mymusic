@@ -7,11 +7,10 @@ import java.util.List;
 
 public interface AudioService {
 
-    public Audio saveAudio(Audio audio);
+    public void saveFile(MultipartFile file);
     public Audio updateAudio(Long id, Audio audio);
     public Audio getAudioById(Long id);
     public Audio getAudioByName(String name);
     public List<Audio> getAllAudios();
     public void deleteAudio(Long id);
-    String saveFile(MultipartFile file);
 }
