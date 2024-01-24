@@ -5,13 +5,17 @@ import com.example.mymusic.mymusic.repositories.AudioRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
 public class AudioServiceImpl implements AudioService {
 
-    private static final String UPLOAD_FOLDER = "Uploads/";
+    private static final String UPLOAD_FOLDER = "uploads/";
 
     private final AudioRepository audioRepository;
 
@@ -55,7 +59,7 @@ public class AudioServiceImpl implements AudioService {
     }
 
     @Override
-    public void saveFile(MultipartFile file) {
+    public void saveFile(MultipartFile file) throws IOException {
         Audio audio = new Audio();
         audio.setName("");
         audio.setDuration(0.0);
@@ -69,6 +73,10 @@ public class AudioServiceImpl implements AudioService {
         audio.setFileUrl(path);
 
         audioRepository.save(audio);
+        byte[] bytes = file.getBytes();
+
+        Path location = Paths.get(UPLOAD_FOLDER + id + "." + extension);
+        Files.write(location, bytes);
 
         //ToDo: Delete prints in the entire project
         System.out.println("File and audio information saved successfully");

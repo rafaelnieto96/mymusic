@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/audio")
 public class AudioController {
@@ -34,7 +36,8 @@ public class AudioController {
         return new ResponseEntity<>(audioService.getAudioById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/get/{name}")
+    //ToDo: delete this endpoint
+    @GetMapping("/get/name/{name}")
     public ResponseEntity<?> getAudioByName(@PathVariable String name) {
         return new ResponseEntity<>(audioService.getAudioByName(name), HttpStatus.OK);
     }
@@ -47,7 +50,7 @@ public class AudioController {
     }
 
     @PostMapping("/upload")
-    public String saveFile(@RequestParam("file") MultipartFile file) {
+    public String saveFile(@RequestParam("file") MultipartFile file) throws IOException {
         if (!file.isEmpty()) {
             audioService.saveFile(file);
             System.out.println("File uploaded: " + file.getOriginalFilename());

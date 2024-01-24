@@ -97,7 +97,9 @@
                 <td th:text="${audio.name}">Default Name</td>
                 <td th:text="${audio.duration}">Default Duration</td>
                 <td>
-                    <button style="--clr:#0FF0FC"><span>Play</span><i></i></button>
+                    <button style="--clr:#0FF0FC" th:attr="onclick=|playAudio('${audio.fileUrl}')|">
+                        <span>Play</span><i></i>
+                    </button>
                     <button class="delete-btn" style="--clr:#FF3131" th:attr="onclick=|deleteAudio('${audio.id}')|">
                         <span>Delete</span><i></i>
                     </button>
@@ -107,10 +109,8 @@
         </table>
     </div>
     <div class="container-audio">
-        <audio controls loop autoplay>
-            <source src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9473/new_year_dubstep_minimix.ogg"
-                    type="audio/ogg">
-            Your browser does not Support the audio Tag
+        <audio id="audioPlayer" controls>
+            Your browser does not support the audio tag.
         </audio>
     </div>
 </div>
@@ -148,8 +148,22 @@
         }
     }
 
+    // Play
+    function playAudio(audioUrl) {
+        var audio = document.getElementById('audioPlayer');
+        audio.src = audioUrl;
+        audio.load();
+        audio.play()
+            .then(() => {
+                // Audio is playing.
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
     // Delete
-      async function deleteAudio(audioId) {
+    async function deleteAudio(audioId) {
         try {
             const response = await fetch(`/audio/delete/${audioId}`, {
                 method: 'DELETE'
@@ -166,6 +180,7 @@
         }
     }
 </script>
+
 </body>
 
 </html>
