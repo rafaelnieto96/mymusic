@@ -36,28 +36,15 @@ public class AudioController {
         return new ResponseEntity<>(audioService.getAudioById(id), HttpStatus.OK);
     }
 
-    //ToDo: delete this endpoint
-    @GetMapping("/get/name/{name}")
-    public ResponseEntity<?> getAudioByName(@PathVariable String name) {
-        return new ResponseEntity<>(audioService.getAudioByName(name), HttpStatus.OK);
-    }
-
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteAudio(@PathVariable Long id) {
-        System.out.println("File deleted: " + id);
         audioService.deleteAudio(id);
         return new ResponseEntity<>("Audio deleted succesfully", HttpStatus.OK);
     }
 
     @PostMapping("/upload")
     public String saveFile(@RequestParam("file") MultipartFile file) throws IOException {
-        if (!file.isEmpty()) {
-            audioService.saveFile(file);
-            System.out.println("File uploaded: " + file.getOriginalFilename());
-        } else {
-            System.out.println("No file uploaded");
-        }
-
+        audioService.saveFile(file);
         return "redirect:/";
     }
 

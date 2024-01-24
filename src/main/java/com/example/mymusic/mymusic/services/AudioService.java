@@ -11,7 +11,6 @@ public interface AudioService {
     public void saveFile(MultipartFile file) throws IOException;
     public Audio updateAudio(Long id, Audio audio);
     public Audio getAudioById(Long id);
-    public Audio getAudioByName(String name);
     public List<Audio> getAllAudios();
     public void deleteAudio(Long id);
 }

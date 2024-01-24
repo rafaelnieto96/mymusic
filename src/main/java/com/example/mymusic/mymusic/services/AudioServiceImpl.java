@@ -41,12 +41,6 @@ public class AudioServiceImpl implements AudioService {
     }
 
     @Override
-    public Audio getAudioByName(String name) {
-        return audioRepository.findByName(name)
-                .orElseThrow(() -> new NoSuchElementException("Audio not found"));
-    }
-
-    @Override
     public List<Audio> getAllAudios() {
         return audioRepository.findAll();
     }
@@ -77,9 +71,6 @@ public class AudioServiceImpl implements AudioService {
 
         Path location = Paths.get(UPLOAD_FOLDER + id + "." + extension);
         Files.write(location, bytes);
-
-        //ToDo: Delete prints in the entire project
-        System.out.println("File and audio information saved successfully");
     }
 
 }
