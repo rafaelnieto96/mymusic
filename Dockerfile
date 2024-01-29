@@ -9,3 +9,5 @@ ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} mymusic.jar
 
 EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "mymusic.jar"]
