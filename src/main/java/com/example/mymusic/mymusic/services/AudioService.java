@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface AudioService {
 
-    public void saveFile(MultipartFile file) throws IOException;
-    public Audio updateAudio(Long id, Audio audio);
-    public Audio getAudioById(Long id);
-    public List<Audio> getAllAudios();
-    public void deleteAudio(Long id);
+    void saveFile(MultipartFile file) throws IOException;
+
+    List<Audio> getAllAudios();
+
+    void deleteAudio(Long id);
 }

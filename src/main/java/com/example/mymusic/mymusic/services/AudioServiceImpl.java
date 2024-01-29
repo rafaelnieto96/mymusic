@@ -27,23 +27,6 @@ public class AudioServiceImpl implements AudioService {
     }
 
     @Override
-    public Audio updateAudio(Long id, Audio updatedAudio) {
-        Audio existingAudio = audioRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Audio not found"));
-
-        existingAudio.setName(updatedAudio.getName());
-        existingAudio.setDuration(updatedAudio.getDuration());
-
-        return audioRepository.save(existingAudio);
-    }
-
-    @Override
-    public Audio getAudioById(Long id) {
-        return audioRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Audio not found"));
-    }
-
-    @Override
     public List<Audio> getAllAudios() {
         return audioRepository.findAll();
     }
@@ -52,31 +35,21 @@ public class AudioServiceImpl implements AudioService {
     public void deleteAudio(Long id) {
         Audio existingAudio = audioRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Audio not found"));
-        audioRepository.delete(existingAudio);
 
-        //ToDo: refactor
-        deleteFile(existingAudio);
+        deleteFromFolder(existingAudio);
 
         audioRepository.delete(existingAudio);
     }
 
-    //ToDo: refactor
-    private void deleteFile(Audio audio) {
+    private void deleteFromFolder(Audio audio) {
         String fileUrl = audio.getFileUrl();
-
-
         Long id = audio.getId();
 
-//        Path location = Paths.get(UPLOAD_FOLDER + id + "." + "mp3");
-
         if (fileUrl != null && !fileUrl.isEmpty()) {
-//            Path filePath = Paths.get(fileUrl);
             Path filePath = Paths.get(UPLOAD_FOLDER + id + "." + "mp3");
-
             try {
                 Files.deleteIfExists(filePath);
             } catch (IOException e) {
-                // Handle the exception, e.g., log it
                 e.printStackTrace();
             }
         }
