@@ -8,11 +8,11 @@ WORKDIR /app
 
 COPY . .
 
+# Run Maven build
 RUN mvn clean package
 
-ARG JAR_FILE=target/*.jar
-
-COPY ${JAR_FILE} /app/mymusic.jar
+# Copy the JAR file from the target directory
+COPY target/*.jar /app/mymusic.jar
 
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "mymusic.jar"]
