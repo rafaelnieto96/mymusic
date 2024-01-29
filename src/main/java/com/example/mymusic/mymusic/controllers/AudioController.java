@@ -44,8 +44,12 @@ public class AudioController {
 
     @PostMapping("/upload")
     public String saveFile(@RequestParam("file") MultipartFile file) throws IOException {
-        audioService.saveFile(file);
-        return "redirect:/";
+        try {
+            audioService.saveFile(file);
+            return "redirect:/";
+        } catch (IOException e) {
+            return "Error uploading the file: " + e.getMessage();
+        }
     }
 
 }

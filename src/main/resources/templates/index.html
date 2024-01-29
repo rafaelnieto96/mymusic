@@ -83,7 +83,7 @@
             <thead>
             <tr>
                 <th>Name</th>
-                <th>Duration</th>
+                <th>Date</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -94,8 +94,8 @@
         <table cellpadding="0" cellspacing="0" border="0">
             <tbody>
             <tr th:each="audio : ${audioList}">
-                <td th:text="${audio.name}">Default Name</td>
-                <td th:text="${audio.duration}">Default Duration</td>
+                <td th:text="${audio.name}"></td>
+                <td th:text="${#dates.format(audio.uploadDate, 'dd-MMM-yyyy')}"></td>
                 <td>
                     <button style="--clr:#0FF0FC" th:attr="onclick=|playAudio('${audio.fileUrl}')|">
                         <span>Play</span><i></i>

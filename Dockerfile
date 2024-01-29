@@ -1,12 +1,12 @@
 FROM maven:3.8.5-openjdk-17 AS build
 
-COPY . .
+RUN mkdir -p /app/uploads
+RUN find /app/uploads -type d -exec chmod 0777 {} \;
+RUN find /app/uploads -type f -exec chmod 777 {} \;
+WORKDIR /app
 
-RUN mvn clean package -DskipTests
-
-FROM openjdk:17.0.1-jdk-slim
-
-COPY --from=build /target/mymusic-0.0.1-SNAPSHOT.jar mymusic.jar
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} mymusic.jar
 
 EXPOSE 8080
 

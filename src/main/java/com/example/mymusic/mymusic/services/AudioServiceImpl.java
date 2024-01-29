@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -50,6 +53,33 @@ public class AudioServiceImpl implements AudioService {
         Audio existingAudio = audioRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Audio not found"));
         audioRepository.delete(existingAudio);
+
+        //ToDo: refactor
+        deleteFile(existingAudio);
+
+        audioRepository.delete(existingAudio);
+    }
+
+    //ToDo: refactor
+    private void deleteFile(Audio audio) {
+        String fileUrl = audio.getFileUrl();
+
+
+        Long id = audio.getId();
+
+//        Path location = Paths.get(UPLOAD_FOLDER + id + "." + "mp3");
+
+        if (fileUrl != null && !fileUrl.isEmpty()) {
+//            Path filePath = Paths.get(fileUrl);
+            Path filePath = Paths.get(UPLOAD_FOLDER + id + "." + "mp3");
+
+            try {
+                Files.deleteIfExists(filePath);
+            } catch (IOException e) {
+                // Handle the exception, e.g., log it
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -65,6 +95,8 @@ public class AudioServiceImpl implements AudioService {
         String path = UPLOAD_FOLDER + id + "." + extension;
         audio.setName(file.getOriginalFilename());
         audio.setFileUrl(path);
+
+        audio.setUploadDate(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
 
         audioRepository.save(audio);
         byte[] bytes = file.getBytes();
