@@ -8,7 +8,8 @@ COPY . /app
 
 RUN mvn clean package -DskipTests
 
-FROM openjdk:17-jre-slim
+FROM openjdk:17.0.1-jdk-slim
+
 WORKDIR /app
 
 COPY --from=build /app/target/mymusic-0.0.1-SNAPSHOT.jar mymusic.jar
