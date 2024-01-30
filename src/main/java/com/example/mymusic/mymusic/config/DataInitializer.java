@@ -24,8 +24,8 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     private void initializeData() {
-        Audio audio2 = new Audio(1L, "Dj Quads - Soul", "/uploads/1.mp3", Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
-        Audio audio1 = new Audio(2L, "JPB - High", "/uploads/2.mp3", Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
+        Audio audio1 = new Audio(1L, "Dj Quads - Soul", "/uploads/1.mp3", Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
+        Audio audio2 = new Audio(2L, "JPB - High", "/uploads/2.mp3", Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
         Audio audio3 = new Audio(3L, "MGR 7TH - Cloud Nining", "/uploads/3.mp3", Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
 
         audioRepository.save(audio1);
