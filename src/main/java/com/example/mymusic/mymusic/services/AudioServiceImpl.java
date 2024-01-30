@@ -41,7 +41,7 @@ public class AudioServiceImpl implements AudioService {
         audioRepository.delete(existingAudio);
     }
 
-    private void deleteFromFolder(Audio audio) {
+    public void deleteFromFolder(Audio audio) {
         String fileUrl = audio.getFileUrl();
         Long id = audio.getId();
 
