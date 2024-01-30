@@ -59,7 +59,6 @@ public class AudioServiceImpl implements AudioService {
     public void saveFile(MultipartFile file) throws IOException {
         Audio audio = new Audio();
         audio.setName("");
-        audio.setDuration(0.0);
         audioRepository.save(audio);
 
         String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
