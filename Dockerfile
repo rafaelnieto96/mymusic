@@ -11,7 +11,7 @@ WORKDIR /app
 
 COPY --from=build /app/target/mymusic-0.0.1-SNAPSHOT.jar mymusic.jar
 
-RUN mkdir -p /app/uploads
+COPY --from=build /app/uploads /app/uploads
 RUN find /app/uploads -type d -exec chmod 0777 {} \;
 RUN find /app/uploads -type f -exec chmod 777 {} \;
 
